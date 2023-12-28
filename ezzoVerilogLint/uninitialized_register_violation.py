@@ -12,16 +12,18 @@ def check_uninitialized_registers(verilog_code):
             if match:
                 register_name = match.group(2)
 
-                # Check if the register is assigned a value in the same line
                 if not re.search(r'\b' + register_name + r'\s*=', line):
-                    uninitialized_registers.append((i, register_name))
+                    for j, line in enumerate(lines, start=i + 1):
+                        if re.search(r'\b' + register_name + r'\s*=', line):
+                            break
+                    else: uninitialized_registers.append((j, register_name))
 
     return uninitialized_registers
 
 if __name__ == "__main__":
     # Example usage:
     verilog_code = """
-    reg [7:0] reg1, reg2, reg3;
+    reg [7:0] reg1;
     wire [3:0] result ;
     result = 4'b0101;
     always @(posedge clk or posedge rst) begin
