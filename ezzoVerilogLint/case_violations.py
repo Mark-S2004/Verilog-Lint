@@ -75,10 +75,13 @@ def catch_non_parallel_case(verilog_code: str) -> list[int]:
     line_numbers = []
 
     case_pattern = re.compile(r"^[^/]*?\bcase[xz]?\b[\s\S]*?\bendcase\b", re.MULTILINE)
+    synthesis_directive_pattern = re.compile(r"//[\s\S]*\bparallel_case\b")
     labels_pattern = re.compile(r"[;)]\s*(\d+'\w)?(?P<label>\w+)\s*:")
 
     cases = case_pattern.finditer(verilog_code)
     for casee in cases:
+        if synthesis_directive_pattern.search(casee.group()):
+            continue
         parallel = True
         labels = labels_pattern.findall(casee.group())
         for label in labels:
