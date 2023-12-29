@@ -1,7 +1,7 @@
 module Top();
     reg [7:0] reg1;
     reg [1:0] f;
-    wire [3:0] result ;
+    reg [3:0] result ;
     result = 4'b0101;
 
     always @(posedge clk or posedge rst) begin
@@ -36,21 +36,12 @@ module Top();
         // reg3 is uninitialized in this block
         data_out <= result + reg3;
 
-        f = 2'bxx;
-        case (result)
-            4'b0001 : f = 2'b11;
-            4'b0010: f=2'b10;
-            4'b0100 :f =2'b01;
-            4'b1000 :  f = 2'b00;
-        endcase
-
         // Raise non full-case violation
         case (result)
             4'b0001 : f = 2'b11;
             4'b0010: f=2'b10;
             4'b0100 :f =2'b01;
             4'b1000 :  f = 2'b00;
-            default:f= 2'bxx;
         endcase
     end
 endmodule
