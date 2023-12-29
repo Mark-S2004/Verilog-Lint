@@ -15,7 +15,7 @@ def catch_non_full_case(verilog_code: str) -> list[int]:
     line_numbers = []
     regs = get_declared_regs(verilog_code)
 
-    case_pattern = re.compile(r"\bcase[xz]?\b[\s\S]*\bendcase\b", re.MULTILINE)
+    case_pattern = re.compile(r"\bcase[xz]?\b[\s\S]*?\bendcase\b", re.MULTILINE)
     case_expression_pattern = re.compile(r"\bcase[xz]?\b.*\(\s*(\w*)\s*\)")
     synthesis_directive_pattern = re.compile(r"//[\s\S]*\bfull_case\b")
     labels_pattern = re.compile(r"[;)]\s*(\d+'\w)?(?P<label>\w+)\s*:")
