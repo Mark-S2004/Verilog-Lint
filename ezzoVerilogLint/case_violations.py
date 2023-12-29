@@ -49,9 +49,11 @@ def catch_non_full_case(verilog_code: str) -> list[int]:
                 except ValueError:
                     dont_care = True
                     continue
-            possible_values.remove(decimal_label)
+            try:
+                possible_values.remove(decimal_label)
+            except ValueError:
+                continue
         if dont_care:
-            print("dont")
             continue
 
         if not len(possible_values):
@@ -61,14 +63,44 @@ def catch_non_full_case(verilog_code: str) -> list[int]:
 
     return line_numbers
 
+def catch_non_parallel_case(verilog_code: str) -> list[int]:
+    """Catch any non parallel case, casex or casez statements and return their line numbers
+
+    Arguments:
+        verilog_code -- a string of verilog module code
+
+    Returns:
+        Returns a list of line numbers on which non parallel case, casex or casez statements occurred
+    """
+    line_numbers = []
+
+    case_pattern = re.compile(r"^[^/]*?\bcase[xz]?\b[\s\S]*?\bendcase\b", re.MULTILINE)
+    labels_pattern = re.compile(r"[;)]\s*(\d+'\w)?(?P<label>\w+)\s*:")
+
+    cases = case_pattern.finditer(verilog_code)
+    for casee in cases:
+        parallel = True
+        labels = labels_pattern.findall(casee.group())
+        for label in labels:
+            if sum(l[1]==label[1] for l in labels)>1:
+                parallel = False
+                break
+        if not parallel:
+            line_numbers.append(verilog_code.count("\n", 0, casee.start()) + 1)
+    
+    return line_numbers
 
 if __name__ == "__main__":
     VERILOG_CODE = """reg [1:0] result;
     casez (result)
         1 : f = 2'b11;
         0: f=2'b10;
+        0: f=2'b10;
         2'b10: f=2'b00;
     endcase
     """
     violations = catch_non_full_case(VERILOG_CODE)
+    print(violations)
+
+    violations = catch_non_parallel_case(VERILOG_CODE)
     print(violations)
