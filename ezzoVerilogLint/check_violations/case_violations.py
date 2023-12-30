@@ -1,6 +1,6 @@
 """This module implements a function that catches non-fullcase violations in verilog file"""
 import re
-from global_functions import get_declared_regs
+from .global_functions import get_declared_regs
 
 
 def catch_non_full_case(verilog_code: str) -> list[int]:

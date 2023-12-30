@@ -1,5 +1,5 @@
-from global_functions import get_declared_regs
 import re
+from .global_functions import get_declared_regs
 
 
 def check_uninitialized_registers(verilog_code):

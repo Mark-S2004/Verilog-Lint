@@ -1,5 +1,5 @@
 import re
-from global_functions import get_declared_regs
+from .global_functions import get_declared_regs
 
 
 def find_occurrences(string, register_name):

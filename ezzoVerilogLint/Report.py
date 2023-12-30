@@ -65,4 +65,6 @@ class Report:
             for uninitialized_registers in self.uninitialized_register_violations:
                 report += f"\nUninitialized register found in line {uninitialized_registers[0]} for register {uninitialized_registers[1]}"
 
+        report += "\n\n"
+
         return report
