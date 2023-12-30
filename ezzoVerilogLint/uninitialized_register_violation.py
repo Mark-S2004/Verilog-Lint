@@ -58,39 +58,3 @@ def check_uninitialized_registers(verilog_code):
                 )
             )
     return uninitialized_registers
-
-
-if __name__ == "__main__":
-    # Example usage:
-    verilog_code = """
-    reg [7:0] reg1, reg2 , reg3;
-    wire [3:0] result ;
-    result <= 4'b0101;
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            reg1 <= 8'b00000000;
-            reg2 <= 8'b11110000;
-        end else begin
-            reg1 <= data_in + reg2;
-            reg2 <= reg1;
-        end
-
-        // reg3 is uninitialized in this block
-        result <= reg1 + reg2;
-    end
-
-    always @(posedge clk) begin
-        // reg3 is uninitialized in this block
-        data_out <= result + reg3;
-        reg3 = 8'b01010101
-    end
-    """
-
-    uninitialized_registers = check_uninitialized_registers(verilog_code)
-
-    if uninitialized_registers:
-        print("Uninitialized registers found:")
-        for line_number, register_name in uninitialized_registers:
-            print(f"Line {line_number}: {register_name}")
-    else:
-        print("No uninitialized registers found.")
