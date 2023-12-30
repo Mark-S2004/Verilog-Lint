@@ -2,7 +2,6 @@ import sys
 import os
 import argparse
 
-from tensorboard import program
 from .Veriloglint import Veriloglint
 
 if __name__ == "__main__":
