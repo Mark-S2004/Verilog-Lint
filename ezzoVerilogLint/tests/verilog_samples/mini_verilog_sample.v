@@ -1,5 +1,7 @@
 reg [3:0] result;
 
+reg1 = 1;
+reg2 = 0;
 // Raise non full-case violation
 case (result)
     4'b0001 : f = 2'b11;
@@ -23,6 +25,8 @@ case (result)
     default: f = 2'bxx;
 endcase
 
+result = reg1 + reg2
+
 // Raise non parallel-case violation
 case (result)
     4'b0000 : f = 2'b11;
@@ -31,3 +35,6 @@ case (result)
     4'b0010 : f = 2'b01;
     4'b0011 : f = 2'b00;
 endcase
+
+// Rasie uninitialized register violation for reg3 and reg4
+result <= reg3 + reg4
