@@ -20,12 +20,13 @@ def check_uninitialized_registers(verilog_code):
         verilog_code,
     )
     for appeared_reg in appeared_regs:
-        found = False
+        left_found = False
+        right_found = False
         for initialized_reg in initialized_regs:
             if appeared_reg.group("left_operand") == initialized_reg["name"]:
-                found = True
+                left_found = True
+                init = False
                 for loc in initialized_reg["loc"]:
-                    init = False
                     if loc.start() < appeared_reg.start():
                         init = True
                         break
@@ -36,10 +37,13 @@ def check_uninitialized_registers(verilog_code):
                             appeared_reg.group("left_operand"),
                         )
                     )
-            if appeared_reg.group("right_operand") == initialized_reg["name"]:
-                found = True
+            if (
+                appeared_reg.group("right_operand")
+                and appeared_reg.group("right_operand") == initialized_reg["name"]
+            ):
+                right_found = True
+                init = False
                 for loc in initialized_reg["loc"]:
-                    init = False
                     if loc.start() < appeared_reg.start():
                         init = True
                         break
@@ -50,11 +54,18 @@ def check_uninitialized_registers(verilog_code):
                             appeared_reg.group("right_operand"),
                         )
                     )
-        if not found:
+        if not left_found:
             uninitialized_registers.append(
                 (
                     verilog_code.count("\n", 0, appeared_reg.start()) + 1,
                     appeared_reg.group("left_operand"),
+                )
+            )
+        if not right_found and appeared_reg.group("right_operand"):
+            uninitialized_registers.append(
+                (
+                    verilog_code.count("\n", 0, appeared_reg.start()) + 1,
+                    appeared_reg.group("right_operand"),
                 )
             )
     return uninitialized_registers

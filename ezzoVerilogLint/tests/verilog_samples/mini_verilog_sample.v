@@ -1,4 +1,5 @@
 reg [3:0] result;
+reg reg1, reg2, reg3, reg4;
 
 reg1 = 1;
 reg2 = 0;

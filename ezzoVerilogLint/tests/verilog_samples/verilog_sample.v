@@ -14,6 +14,7 @@ module Top();
             reg1 <= 8'b00000000;
             reg2 <= 8'b11110000;
         end else begin
+            // raise uninitialized reg for data_in
             reg1 <= data_in + reg2;
             reg2 <= reg1;
         end
@@ -69,6 +70,7 @@ module Top();
 
     always @(posedge clk)
     begin
+        // raise uninitialized reg for d
         b <= d;
     end
 endmodule

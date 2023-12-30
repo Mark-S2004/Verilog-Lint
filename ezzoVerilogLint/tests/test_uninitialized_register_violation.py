@@ -16,7 +16,7 @@ from parse_verilog_fixtures import mini_verilog_sample, verilog_sample
 def verilog_snippet():
     return """
     reg [7:0] reg1, reg2 , reg3;
-    wire [3:0] result ;
+    reg [3:0] result ;
     result <= 4'b0101;
     always @(posedge clk or posedge rst) begin
         if (rst) begin
@@ -41,26 +41,34 @@ def verilog_snippet():
 def test_uninitreg_on_verilog_code_snippet(verilog_snippet):
     """Test check_uninitialized_registers() on verilog code snippet"""
     violations = check_uninitialized_registers(verilog_snippet)
-    assert len(violations) == 1
-    assert violations[0][0] == 19
-    assert violations[0][1] == "reg3"
+    assert len(violations) == 2
+    assert violations[0][0] == 10
+    assert violations[0][1] == "data_in"
+    assert violations[1][0] == 19
+    assert violations[1][1] == "reg3"
 
 
 def test_uninitreg_on_mini_verilog_sample(mini_verilog_sample):
     """Test check_uninitialized_registers() on mini_verilog_sample.v"""
     violations = check_uninitialized_registers(mini_verilog_sample)
     assert len(violations) == 2
-    assert violations[0][0] == 40
+    assert violations[0][0] == 41
     assert violations[0][1] == "reg3"
-    assert violations[1][0] == 40
+    assert violations[1][0] == 41
     assert violations[1][1] == "reg4"
 
 
 def test_uninitreg_on_verilog_sample(verilog_sample):
     """Test check_uninitialized_registers() on verilog_sample.v"""
     violations = check_uninitialized_registers(verilog_sample)
-    assert len(violations) == 2
+    assert len(violations) == 5
     assert violations[0][0] == 11
     assert violations[0][1] == "b"
-    assert violations[1][0] == 47
-    assert violations[1][1] == "c"
+    assert violations[1][0] == 18
+    assert violations[1][1] == "data_in"
+    assert violations[2][0] == 48
+    assert violations[2][1] == "c"
+    assert violations[3][0] == 51
+    assert violations[3][1] == "reg3"
+    assert violations[4][0] == 74
+    assert violations[4][1] == "d"
