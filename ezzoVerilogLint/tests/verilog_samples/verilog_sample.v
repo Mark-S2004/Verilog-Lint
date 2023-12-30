@@ -7,6 +7,7 @@ module Top();
     result = 4'b0101;
 
     always @(posedge clk or posedge rst) begin
+        // Raise uninitialized register violation for register b
         a <= b;
 
         if (rst) begin
@@ -42,6 +43,7 @@ module Top();
     end
 
     always @(posedge clk) begin
+        // Raise uninitialized register violation for register c
         b <= c;
 
         // reg3 is uninitialized in this block
