@@ -2,12 +2,17 @@
 This module implements Veriloglint class
 """
 import os
-from Report import Report
-from arithmetic_overflow_violation import detect_arithmetic_overflow
-from case_violations import catch_non_full_case, catch_non_parallel_case
-from infer_latch_violation import check_infer_latch
-from multidriven_register_violation import check_multidriven_registers
-from uninitialized_register_violation import check_uninitialized_registers
+from .Report import Report
+from .check_violations.arithmetic_overflow_violation import detect_arithmetic_overflow
+from .check_violations.case_violations import (
+    catch_non_full_case,
+    catch_non_parallel_case,
+)
+from .check_violations.infer_latch_violation import check_infer_latch
+from .check_violations.multidriven_register_violation import check_multidriven_registers
+from .check_violations.uninitialized_register_violation import (
+    check_uninitialized_registers,
+)
 
 
 class Veriloglint:
@@ -21,6 +26,7 @@ class Veriloglint:
     """
 
     def __init__(self, verilog_module_path: str):
+        self.__verilog_module_path = verilog_module_path
         self._verilog_code = verilog_module_path
         self._report = self._verilog_code
 
@@ -42,7 +48,7 @@ class Veriloglint:
 
     @report.setter
     def _report(self, verilog_code: str):
-        self.__report = Report()
+        self.__report = Report(os.path.basename(self.__verilog_module_path))
         self.__report.arithmetic_overflow_violations = detect_arithmetic_overflow(
             verilog_code
         )

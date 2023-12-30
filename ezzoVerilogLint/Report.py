@@ -4,7 +4,8 @@ This module implements Report class
 
 
 class Report:
-    def __init__(self):
+    def __init__(self, filename: str):
+        self.filename = filename
         self.arithmetic_overflow_violations = []
         self.fullcase_violations = []
         self.parallelcase_violations = []
@@ -15,7 +16,7 @@ class Report:
     def __repr__(self) -> str:
         """
         Format example:
-        Lint Report
+        Filename Lint Report
         ------------
         Arithmetic overflow violation on line number 5 for 'reg1' register
         No non full-case violations
@@ -24,7 +25,7 @@ class Report:
         No multidriven register violations
         No uninitialized register violations
         """
-        report = "Lint Report\n------------"
+        report = f"{self.filename} Lint Report\n------------"
 
         if not len(self.arithmetic_overflow_violations):
             report += "\nNo arithmetic overflow violation"
