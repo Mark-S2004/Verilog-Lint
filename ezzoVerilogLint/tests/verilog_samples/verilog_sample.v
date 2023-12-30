@@ -75,4 +75,41 @@ module Top();
         // raise uninitialized reg for d
         b <= d;
     end
+
+    
+    input wire [2:0] reg_input_00,reg_input_01;
+    output wire [2:0] reg_result_0;
+
+
+    input wire [9:0] reg_input_1,reg_input_2;
+    output wire [2:0] reg_result_1;
+
+    input reg [3:0] reg_11,reg_22;
+    output reg [1:0] reg_result_2;
+
+    wire [5:0] reg_input_3,reg_input_4;
+    wire [2:0] reg_result_3;
+
+    reg [5:0] reg_input_5,reg_input_6;
+    reg [2:0] reg_result_4;
+
+    // No Arithmetic overflow
+    reg_result_0 = reg_input_00 + reg_input_01
+
+    // Arithmetic overflow
+    reg_result_1 = reg_input_1 + reg_input_2
+
+    // Arithmetic overflow
+    reg_result_2 = reg_11 + reg_22
+
+    // Arithmetic overflow
+    reg_result_3 = reg_input_3 + reg_input_4
+
+    // Arithmetic overflow
+    reg_result_4 = reg_input_5 + reg_input_6
+
+
+
 endmodule
+
+
