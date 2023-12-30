@@ -63,6 +63,7 @@ def catch_non_full_case(verilog_code: str) -> list[int]:
 
     return line_numbers
 
+
 def catch_non_parallel_case(verilog_code: str) -> list[int]:
     """Catch any non parallel case, casex or casez statements and return their line numbers
 
@@ -85,25 +86,10 @@ def catch_non_parallel_case(verilog_code: str) -> list[int]:
         parallel = True
         labels = labels_pattern.findall(casee.group())
         for label in labels:
-            if sum(l[1]==label[1] for l in labels)>1:
+            if sum(l[1] == label[1] for l in labels) > 1:
                 parallel = False
                 break
         if not parallel:
             line_numbers.append(verilog_code.count("\n", 0, casee.start()) + 1)
-    
+
     return line_numbers
-
-if __name__ == "__main__":
-    VERILOG_CODE = """reg [1:0] result;
-    casez (result)
-        1 : f = 2'b11;
-        0: f=2'b10;
-        0: f=2'b10;
-        2'b10: f=2'b00;
-    endcase
-    """
-    violations = catch_non_full_case(VERILOG_CODE)
-    print(violations)
-
-    violations = catch_non_parallel_case(VERILOG_CODE)
-    print(violations)
