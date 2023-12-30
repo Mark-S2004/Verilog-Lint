@@ -1,5 +1,5 @@
 """
-This module tests case_violations module functions on multiple verilog_samples
+This module tests uninitialized_register_violation module functions on multiple verilog_samples
 """
 
 import sys

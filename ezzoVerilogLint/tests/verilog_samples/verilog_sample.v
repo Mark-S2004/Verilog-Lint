@@ -90,22 +90,32 @@ module Top();
     wire [5:0] reg_input_3,reg_input_4;
     wire [2:0] reg_result_3;
 
-    reg [5:0] reg_input_5,reg_input_6;
+    reg [5:0] reg_input_5, reg_input_6;
     reg [2:0] reg_result_4;
 
     // No Arithmetic overflow
+    reg_input_00 = 1;
+    reg_input_01 = 0;
     reg_result_0 = reg_input_00 + reg_input_01
 
     // Arithmetic overflow
+    reg_input_1 = 0;
+    reg_input_2 = 1;
     reg_result_1 = reg_input_1 + reg_input_2
 
     // Arithmetic overflow
+    reg_22 = 1;
+    reg_11 = 1;
     reg_result_2 = reg_11 + reg_22
 
     // Arithmetic overflow
+    reg_input_3 = 0;
+    reg_input_4 = 0;
     reg_result_3 = reg_input_3 + reg_input_4
 
     // Arithmetic overflow
+    reg_input_5 = 2'b01;
+    reg_input_6 = 2'b10;
     reg_result_4 = reg_input_5 + reg_input_6
 
 

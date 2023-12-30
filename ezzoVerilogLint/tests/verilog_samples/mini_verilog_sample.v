@@ -62,7 +62,7 @@ f = 2'b10;
 
     // Test 2: Arithmetic overflow with subtraction
     reg_1 = 5;
-    reg_2 = 7;
+    reg_5 = 7;
     reg_2 = reg_5 - reg_2;  // Overflow here
 
 
