@@ -34,6 +34,8 @@ module Top();
             default: f = 2'bxx;
         endcase
         
+
+        // Generate a latch
         if(reg1)
         f = 2'b00;
         else if(reg2)

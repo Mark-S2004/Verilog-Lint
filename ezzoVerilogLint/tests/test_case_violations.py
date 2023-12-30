@@ -46,8 +46,8 @@ def test_fullcase_on_verilog_sample(verilog_sample):
     """Test catch_non_full_case() on verilog_sample.v"""
     line_numbers = catch_non_full_case(verilog_sample)
     assert len(line_numbers) == 2
-    assert line_numbers[0] == 54
-    assert line_numbers[1] == 62
+    assert line_numbers[0] == 56
+    assert line_numbers[1] == 64
 
 
 ########################## Paralell Case testing ##########################
@@ -71,4 +71,4 @@ def test_parallelcase_on_verilog_sample(verilog_sample):
     """Test catch_non_parallel_case() on verilog_sample.v"""
     line_numbers = catch_non_parallel_case(verilog_sample)
     assert len(line_numbers) == 1
-    assert line_numbers[0] == 62
+    assert line_numbers[0] == 64

@@ -66,9 +66,9 @@ def test_uninitreg_on_verilog_sample(verilog_sample):
     assert violations[0][1] == "b"
     assert violations[1][0] == 18
     assert violations[1][1] == "data_in"
-    assert violations[2][0] == 48
+    assert violations[2][0] == 50
     assert violations[2][1] == "c"
-    assert violations[3][0] == 51
+    assert violations[3][0] == 53
     assert violations[3][1] == "reg3"
-    assert violations[4][0] == 74
+    assert violations[4][0] == 76
     assert violations[4][1] == "d"

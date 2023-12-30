@@ -39,3 +39,11 @@ endcase
 
 // Rasie uninitialized register violation for reg3 and reg4
 result <= reg3 + reg4
+
+// Generate a latch
+if(reg1)
+f = 2'b00;
+if(reg2)
+f = 2'b01;
+else
+f = 2'b10;
