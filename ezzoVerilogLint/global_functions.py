@@ -6,7 +6,7 @@ import re
 
 def get_declared_regs(verilog_code: str):
     reg_init_pattern = re.compile(
-        r"\s*\breg\b\s*(\[\s*(?P<upper>\d+)\s*:\s*(?P<lower>\d+)\s*\])?\s*(?P<reg_name>\w+(\s*,\s*\w+)*)",
+        r"(input|outupt)?\s*\b(reg|wire)\b\s*(\[\s*(?P<upper>\d+)\s*:\s*(?P<lower>\d+)\s*\])?\s*(?P<reg_name>\w+(\s*,\s*\w+)*)",
         re.MULTILINE,
     )
     regs = reg_init_pattern.finditer(verilog_code)
