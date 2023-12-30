@@ -56,7 +56,7 @@ class Veriloglint:
             verilog_code
         )
 
-    def generate_report(self, path: str = f"{os.getcwd}/report.txt"):
+    def generate_report(self, path: str = f"{os.getcwd()}/report.txt"):
         """Generate a report in
 
         Arguments:
